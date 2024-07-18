@@ -2,11 +2,9 @@ clear;
 clc;
 
 % 假设图像文件名为 'image.jpg'，并且它位于当前工作目录中
-colorImage = imread('gray_3.png');
-
+colorImage = imread('pic2.png');
+% 
 grayImage = rgb2gray(colorImage);
-
-% 显示灰度图像
-imshow(grayImage);
-
-j
+ 
+% % imshow(grayImage);
+grayImage=double(grayImage);
