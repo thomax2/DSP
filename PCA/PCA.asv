@@ -12,7 +12,7 @@ function [Y]=PCA(X,k)
         u = 0;
     end
     [eVe,eVa] = eig(X*X');
-    eVa = diag(eVa);
+    diag(eVa);
     [~,index] = sort(eVa,'descend');
     P = eVe(:,index);
     P = P(:,1:k);
