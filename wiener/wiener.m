@@ -5,7 +5,7 @@ t = 0:dt:dt*(L-1);
 S = sin(1000*pi*t) + 1.5*sin(2000*pi*t);
 % single_power = (1/length(S))*sum(S.^2); % use to replace 'measured' in awgn
 SNR = 6;
-X = awgn(S,SNR,0.6250);
+X = awgn(S,SNR,'measured');
 e = X - S;
 
 N = floor(L*0.1);
