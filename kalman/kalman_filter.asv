@@ -1,0 +1,49 @@
+clear;
+epoch = 100;
+dt = 0.1;
+accelrate = 1;
+velocity = 0;
+position = 0;
+F = [1 dt dt^2; 0 1 dt; 0 0 1];
+H = [1 0 0];
+
+P = eye(3);
+Q = 1;
+
+state = zeros(3,epoch);
+obser = zeros(1,epoch);
+X = zeros(3,epoch);
+R = eye(3);
+
+state(1,1) = position;
+state(2,1) = velocity;
+state(3,1) = accelrate;
+obser(1) = position + sqrt(Q)*randn;
+
+
+
+for i=2:epoch
+    state(:,i) = F*state(:,i-1);
+    state(1,i) = state(:,i) + sqrt(P(1,1))*randn(3,1);
+    state(2,i) = state(:,i) + sqrt(P(2,2))*randn(3,1);
+    state(3,i) = state(:,i) + sqrt(P(3,3))*randn(3,1);
+    obser(i) = H*state(:,i) + sqrt(Q)*randn;
+end
+
+for i=2:epoch
+    Xa = F*X(:,i-1);
+    Ra = F*R*F'+P;
+    G = Ra*H'*((H*Ra*H'+Q)\eye(size((H*Ra*H'+Q))));
+    X(:,i) = X(:,i-1) + G*(obser(i)-H*Xa);
+    R = (eye(3)-G*H)*Ra;
+end
+
+
+% subplot(311)
+plot(state(1,:))
+hold on
+% subplot(312)
+plot(obser)
+% subplot(313)
+plot(X(1,:))
+legend('real','observation','perdict')
