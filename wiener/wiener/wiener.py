@@ -40,3 +40,7 @@ plt.show()
 plt.figure(num=2, figsize=(6, 6))
 plt.plot(Y)
 plt.show()
+
+plt.figure(num=3, figsize=(6, 6))
+plt.plot(S)
+plt.show()
