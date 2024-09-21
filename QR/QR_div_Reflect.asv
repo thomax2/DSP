@@ -1,0 +1,27 @@
+clear;
+close all;
+
+X = [1 2 3;2 3 6;7 2 6;4 5 3;6 9 2];
+
+[m,n] = size(X);
+u = X(:,1);
+u(1,1) = u(1,1)-sqrt(X(:,1)'*X(:,1));
+u = u/sqrt(u'*u);
+H = eye(m)-2*(u*u');
+Y = H*X;
+
+for i = 2
+    u = Y(i:m,i);
+    u(1,1) = u(1,1) - sqrt(Y(i:m,i)'*Y(i:m,i));
+    u = u/sqrt(u'*u);
+    P = eye(m-i+1)-2*(u*u');
+    P = [zeros(1,m-i+1);P];
+    P = [zeros(1,m)' P];
+    P(1,1) = 1;
+    H = P*H;
+    Y = H*X;
+end
+
+
+% [Q, R] = qr(X);
+% Y = Q*R;

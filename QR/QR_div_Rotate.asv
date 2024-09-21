@@ -1,0 +1,30 @@
+clear;
+close all;
+
+% X = randi([-10, 10], 7, 5);
+X = [1 2 3;2 3 6;7 2 6;4 5 3;6 9 2];
+
+[m,n] = size(X);
+% x1 = X(n,n);
+% x2 = X(m,n);
+% theta = atan(x2/x1);
+% 
+H = eye(m);
+Y = X;
+% H(n,n) = cos(theta);
+% H(n,m) = sin(theta);
+% H(m,n) = -sin(theta);
+% H(m,m) = cos(theta);
+
+for i = n:-1:1
+    x1 = X(i,i);
+    for j = m:-1:i+1
+        x2 = X(j,i);
+        theta = atan(x2/x1);
+        P = eye(m);
+        P(i,i) = cos(theta);
+        P(i,j) = sin(theta);
+        P(j,i) = -sin(theta);
+        P(j,j) = cos(theta);
+    end
+end
